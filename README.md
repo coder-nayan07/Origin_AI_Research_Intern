@@ -101,4 +101,3 @@ python visualize.py
 * **Hybrid Supervision:** The model seamlessly handles pixel-level polygon annotations for the cracks dataset and bounding-box level weak supervision for the drywall dataset.
 * **Metric Discrepancies:** The taping area mIoU is mathematically lower (0.3418). This is largely due to **Labeling Mismatch**: the model accurately predicts the narrow drywall seams, but the ground truth annotations in the dataset are often broad bounding boxes.
 * **Faint Structures:** Extremely low-contrast or hairline cracks are occasionally missed or only partially segmented depending on lighting variations.
-```
