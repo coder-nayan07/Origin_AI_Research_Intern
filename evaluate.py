@@ -19,8 +19,8 @@ def map_json(json_path, img_dir, prefix):
         unique_key = f"{prefix}_{img_obj['id']}"
         path_map[unique_key] = os.path.join(img_dir, img_obj['file_name'])
 
-map_json('Drywall-Join-Detect-2/train/_annotations.coco.json', 'Drywall-Join-Detect-2/train', 'drywall')
-map_json('cracks-1/train/_annotations.coco.json', 'cracks-1/train', 'crack')
+map_json('Drywall-Join-Detect-2/valid/_annotations.coco.json', 'Drywall-Join-Detect-2/valid', 'drywall')
+map_json('cracks-1/valid/_annotations.coco.json', 'cracks-1/valid', 'crack')
 
 def get_metrics(pred, gt):
     pred = (pred > 0).astype(np.uint8)
@@ -65,9 +65,9 @@ def run_visual_eval(unique_id, prompt, mask_dir, out_name):
 # --- Run for Report ---
 results = []
 # Evaluate Crack (Polygon GT)
-r_crack = run_visual_eval('crack_1', 'segment crack', 'data/masks', 'final_crack_viz.png')
+r_crack = run_visual_eval('crack_1', 'segment crack', 'data_v/masks', 'final_crack_viz.png')
 # Evaluate Drywall (BBox GT)
-r_drywall = run_visual_eval('drywall_1', 'segment taping area', 'data/masks', 'final_drywall_viz.png')
+r_drywall = run_visual_eval('drywall_1', 'segment taping area', 'data_v/masks', 'final_drywall_viz.png')
 
 metrics = [r for r in [r_crack, r_drywall] if r is not None]
 if metrics:

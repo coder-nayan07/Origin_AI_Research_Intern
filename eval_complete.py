@@ -21,8 +21,8 @@ def map_json(json_path, img_dir, prefix):
         unique_key = f"{prefix}_{img_obj['id']}"
         path_map[unique_key] = os.path.join(img_dir, img_obj['file_name'])
 
-map_json('Drywall-Join-Detect-2/train/_annotations.coco.json', 'Drywall-Join-Detect-2/train', 'drywall')
-map_json('cracks-1/train/_annotations.coco.json', 'cracks-1/train', 'crack')
+map_json('Drywall-Join-Detect-2/valid/_annotations.coco.json', 'Drywall-Join-Detect-2/valid', 'drywall')
+map_json('cracks-1/valid/_annotations.coco.json', 'cracks-1/valid', 'crack')
 
 def calculate_metrics(pred, gt):
     pred = (pred > 0).astype(np.uint8)
@@ -35,7 +35,7 @@ def calculate_metrics(pred, gt):
     return iou, dice
 
 # 3. Aggregate Metrics over ALL examples
-all_masks = [f for f in os.listdir('data/masks') if f.endswith('area.png')]
+all_masks = [f for f in os.listdir('data_v/masks') if f.endswith('crack.png')]
 total_iou = 0
 total_dice = 0
 valid_count = 0
@@ -54,7 +54,7 @@ with torch.no_grad():
             
         # Load data
         image = Image.open(img_path).convert("RGB")
-        gt_mask = cv2.imread(os.path.join('data/masks', mask_name), 0)
+        gt_mask = cv2.imread(os.path.join('data_v/masks', mask_name), 0)
         gt_mask = (gt_mask > 128).astype(np.uint8)
         
         # Inference

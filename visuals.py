@@ -20,8 +20,8 @@ def map_json(json_path, img_dir, prefix):
         unique_key = f"{prefix}_{img_obj['id']}"
         path_map[unique_key] = os.path.join(img_dir, img_obj['file_name'])
 
-map_json('Drywall-Join-Detect-2/train/_annotations.coco.json', 'Drywall-Join-Detect-2/train', 'drywall')
-map_json('cracks-1/train/_annotations.coco.json', 'cracks-1/train', 'crack')
+map_json('Drywall-Join-Detect-2/valid/_annotations.coco.json', 'Drywall-Join-Detect-2/valid', 'drywall')
+map_json('cracks-1/valid/_annotations.coco.json', 'cracks-1/valid', 'crack')
 
 def save_visual_strip(unique_id, prompt, mask_dir, out_name):
     img_path = path_map.get(unique_id)
@@ -62,14 +62,14 @@ def save_visual_strip(unique_id, prompt, mask_dir, out_name):
 
 # 3. Execution for Report Examples
 os.makedirs("visualizations", exist_ok=True)
-all_masks = [f for f in os.listdir('data/masks') if f.endswith('.png')]
+all_masks = [f for f in os.listdir('data_v/masks') if f.endswith('.png')]
 
 # Correctly filter masks based on the isolated prefixes
 crack_ids = [m.split("__")[0] for m in all_masks if m.startswith("crack_")][5:10]
 drywall_ids = [m.split("__")[0] for m in all_masks if m.startswith("drywall_")][5:10]
 
 for i, cid in enumerate(crack_ids):
-    save_visual_strip(cid, "segment crack", "data/masks", f"visualizations/viz_crack_{i}.png")
+    save_visual_strip(cid, "segment crack", "data_v/masks", f"visualizations/viz_crack_{i}.png")
 
 for i, did in enumerate(drywall_ids):
-    save_visual_strip(did, "segment taping area", "data/masks", f"visualizations/viz_drywall_{i}.png")
+    save_visual_strip(did, "segment taping area", "data_v/masks", f"visualizations/viz_drywall_{i}.png")
