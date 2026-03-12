@@ -65,9 +65,9 @@ def run_visual_eval(unique_id, prompt, mask_dir, out_name):
 # --- Run for Report ---
 results = []
 # Evaluate Crack (Polygon GT)
-r_crack = run_visual_eval('crack_0', 'segment crack', 'data/masks', 'final_crack_viz.png')
+r_crack = run_visual_eval('crack_1', 'segment crack', 'data/masks', 'final_crack_viz.png')
 # Evaluate Drywall (BBox GT)
-r_drywall = run_visual_eval('drywall_0', 'segment taping area', 'data/masks', 'final_drywall_viz.png')
+r_drywall = run_visual_eval('drywall_1', 'segment taping area', 'data/masks', 'final_drywall_viz.png')
 
 metrics = [r for r in [r_crack, r_drywall] if r is not None]
 if metrics:
